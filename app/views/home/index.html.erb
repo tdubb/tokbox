@@ -4,9 +4,10 @@
     <h1>Home#index</h1>
     <%= link_to 'Sign Out', destroy_user_session_path(@current_user), :method => :delete %>
     <p>Find me in app/views/home/index.html.erb</p>
-    <div id="videoPublisher">
-    </div>
     <div id="videoSubscriber">
+    </div>
+    <br />
+    <div id="videoPublisher">
     </div>
 
     <% if @create_appointment %>
@@ -19,12 +20,13 @@
       var apiKey = '<%= @key %>';
       var sessionId = '<%= @session %>';
       var token = '<%= @token %>';
+      var options = {width: 400, height: 300, insertMode: 'append'};
       var session = OT.initSession(apiKey, sessionId)
       .on('streamCreated', function(event) {
-      session.subscribe(event.stream, 'videoSubscriber');
+      session.subscribe(event.stream, 'videoSubscriber' options);
       })
       .connect(token, function(error) {
-      var publisher = OT.initPublisher('videoPublisher');
+      var publisher = OT.initPublisher('videoPublisher' options);
       session.publish(publisher);
       });
       </script>
