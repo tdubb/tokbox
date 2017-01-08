@@ -6,21 +6,27 @@
     <p>Find me in app/views/home/index.html.erb</p>
     <div id="video">
     </div>
-    <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
-    <script charset="utf-8">
-    var apiKey = '<%= @key %>';
-    var sessionId = '<%= @session %>';
-    var token = '<%= @token %>';
-    var session = OT.initSession(apiKey, sessionId)
-    .on('streamCreated', function(event) {
-    session.subscribe(event.stream);
-    })
-    .connect(token, function(error) {
-    var publisher = OT.initPublisher('video');
-    session.publish(publisher);
-    });
-    </script>
 
+    <% if @create_appointment %>
+      <div>
+        <%= link_to "Create an Appointment", appointments_index_path() %>
+      </div>
+    <% else %>
+      <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
+      <script charset="utf-8">
+      var apiKey = '<%= @key %>';
+      var sessionId = '<%= @session %>';
+      var token = '<%= @token %>';
+      var session = OT.initSession(apiKey, sessionId)
+      .on('streamCreated', function(event) {
+      session.subscribe(event.stream);
+      })
+      .connect(token, function(error) {
+      var publisher = OT.initPublisher('video');
+      session.publish(publisher);
+      });
+      </script>
+    <% end %>
   </div>
   <div class="col s4"> </div>
 </div>

@@ -9,6 +9,7 @@ class HomeController < ApplicationController
       @session = appointment.session
       @token = appointment.token
     rescue
+      @create_appointment = true
     end
   end
 end
