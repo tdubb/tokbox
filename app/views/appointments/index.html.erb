@@ -2,7 +2,8 @@
 <p>Find me in app/views/appointments/index.html.erb</p>
 
 <%= link_to "Create New Appointment", appointments_create_path() %>
-<%= link_to "Go to Video Chat for Existing Appointment", appointments_create_path() %>
+<br />
+<%= link_to "Go to Video Chat for Existing Appointment", root_path() %>
 <% @appointments.each do |appointment| %>
   <h3><%= appointment.id %></h3>
   <% if appointment.patient_id.nil? %>
