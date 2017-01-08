@@ -23,10 +23,10 @@
       var options = {width: 400, height: 300, insertMode: 'append'};
       var session = OT.initSession(apiKey, sessionId)
       .on('streamCreated', function(event) {
-      session.subscribe(event.stream, 'videoSubscriber' options);
+      session.subscribe(event.stream, 'videoSubscriber', options);
       })
       .connect(token, function(error) {
-      var publisher = OT.initPublisher('videoPublisher' options);
+      var publisher = OT.initPublisher('videoPublisher', options);
       session.publish(publisher);
       });
       </script>
