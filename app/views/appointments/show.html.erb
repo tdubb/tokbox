@@ -1,2 +1,38 @@
-<h1>Appointments#show</h1>
-<p>Find me in app/views/appointments/show.html.erb</p>
+<div class="row">
+  <div class="col s4"> </div>
+  <div class="col s4">
+    <h1>Appointments#show</h1>
+    <%= link_to 'Sign Out', destroy_user_session_path(@current_user), :method => :delete %>
+    <br />
+    <%= link_to 'See Appointments', appointments_path %>
+    <p>Find me in app/views/appointments/show.html.erb</p>
+    <div id="videoSubscriber">
+    </div>
+    <br />
+    <div id="videoPublisher">
+    </div>
+
+    <% if @create_appointment %>
+      <div>
+        <%= link_to "Create an Appointment", appointments_index_path() %>
+      </div>
+    <% else %>
+      <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
+      <script charset="utf-8">
+      var apiKey = '<%= @key %>';
+      var sessionId = '<%= @session %>';
+      var token = '<%= @token %>';
+      var options = {width: 400, height: 300, insertMode: 'append'};
+      var session = OT.initSession(apiKey, sessionId)
+      .on('streamCreated', function(event) {
+      session.subscribe(event.stream, 'videoSubscriber', options);
+      })
+      .connect(token, function(error) {
+      var publisher = OT.initPublisher('videoPublisher', options);
+      session.publish(publisher);
+      });
+      </script>
+    <% end %>
+  </div>
+  <div class="col s4"> </div>
+</div>

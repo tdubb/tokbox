@@ -1,21 +1,26 @@
 <h1>Appointments#index</h1>
 <p>Find me in app/views/appointments/index.html.erb</p>
 
-<%= link_to "Create New Appointment", appointments_create_path() %>
+<%= link_to "Create New Appointment", appointments_path(), :method => :post %>
 <br />
 <%= link_to "Go to Video Chat for Existing Appointment", root_path() %>
 <% @appointments.each do |appointment| %>
   <h3><%= appointment.id %></h3>
   <% if appointment.patient_id.nil? %>
-    <%= link_to "Join as Patient", appointments_update_path(id: appointment.id, type: "patient") %>
+    <%= link_to "Join as Patient", appointment_path(id: appointment.id, type: "patient"), :method => :put %>
   <% else %>
     Patient ID: <%=  appointment.patient_id %>
   <% end %>
   <% if appointment.doctor_id.nil? %>
     <br />
-    <%= link_to "Join as Doctor", appointments_update_path(id: appointment.id, type: "doctor") %>
+    <%= link_to "Join as Doctor", appointment_path(id: appointment.id, type: "doctor"), :method => :put %>
   <% else %>
+    <br />
     Doctor ID: <%=  appointment.doctor_id %>
+  <% end %>
+  <% if appointment.doctor_id == current_user.id || appointment.patient_id == current_user.id %>
+    <br />
+    <%= link_to "Start Appointment", appointment_path(appointment) %>
   <% end %>
 
 <% end %>

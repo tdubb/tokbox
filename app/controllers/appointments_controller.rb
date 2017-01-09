@@ -4,6 +4,15 @@ class AppointmentsController < ApplicationController
   end
 
   def show
+    begin
+      appointment = Appointment.find(params[:id])
+      @key = "45746092"
+      @secret = "856a9189e2a50dc87660f40f3fd65abad8dc5306"
+      @session = appointment.session
+      @token = appointment.token
+    rescue
+      @create_appointment = true
+    end
   end
 
   def new
@@ -15,7 +24,7 @@ class AppointmentsController < ApplicationController
     @token = @session.generate_token
     @appointment = Appointment.new(session: @session, token: @token)
     @appointment.save
-    redirect_to appointments_index_path
+    redirect_to appointments_path
   end
 
   def edit
@@ -29,7 +38,7 @@ class AppointmentsController < ApplicationController
       appointment.doctor_id = current_user.id
     end
     appointment.save
-    redirect_to appointments_index_path
+    redirect_to appointments_path
   end
 
   def destroy
