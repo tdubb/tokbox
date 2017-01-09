@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+  before_action :authenticate_user!
   def index
     role = (current_user.role + "_id").to_sym
     if params[:user_id]
