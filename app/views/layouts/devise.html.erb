@@ -11,6 +11,28 @@
   </head>
 
   <body>
+    <%- if current_user %>
+    <ul id="dropdown1" class="dropdown-content">
+      <li><%= link_to "Home", root_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Open Appointments", appointments_path() %></li>
+      <li class="divider"></li>
+      <li><%= link_to "My Appointments", user_appointments_path(current_user) %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+    </ul>
+    <%- end %>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Logo</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= "Status: #{current_user.role}" if current_user %></li>
+          <%- if current_user %>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= current_user.email %><i class="material-icons right">arrow_drop_down</i></a></li>
+          <%- end %>
+        </ul>
+      </div>
+    </nav>
     <div class="row">
       <div class="col s4"> </div>
       <div class="col s4">

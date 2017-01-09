@@ -1,6 +1,13 @@
 class AppointmentsController < ApplicationController
   def index
-    @appointments = Appointment.all || []
+    role = (current_user.role + "_id").to_sym
+    if params[:user_id]
+      @title = "My Appointments"
+      @appointments = Appointment.where(role => current_user.id) || []
+    else
+      @title = "Open Appointments"
+      @appointments = Appointment.where(role => nil) || []
+    end
   end
 
   def show
