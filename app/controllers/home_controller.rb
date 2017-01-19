@@ -4,10 +4,11 @@ class HomeController < ApplicationController
   def index
     begin
       appointment = Appointment.where(patient_id: current_user.id).or(Appointment.where(doctor_id: current_user.id)).first
-      @key = "45746092"
-      @secret = "856a9189e2a50dc87660f40f3fd65abad8dc5306"
+      @key = ENV["TOKBOX_API_KEY"]
+      @secret = ENV["TOKBOX_API_SECRET"]
       @session = appointment.session
       @token = appointment.token
+      binding.pry
     rescue
       @create_appointment = true
     end

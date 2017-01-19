@@ -14,8 +14,8 @@ class AppointmentsController < ApplicationController
   def show
     begin
       appointment = Appointment.find(params[:id])
-      @key = "45746092"
-      @secret = "856a9189e2a50dc87660f40f3fd65abad8dc5306"
+      @key = ENV["TOKBOX_API_KEY"]
+      @secret = ENV["TOKBOX_API_SECRET"]
       @session = appointment.session
       @token = appointment.token
     rescue
