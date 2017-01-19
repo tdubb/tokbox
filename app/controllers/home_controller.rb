@@ -8,7 +8,6 @@ class HomeController < ApplicationController
       @secret = ENV["TOKBOX_API_SECRET"]
       @session = appointment.session
       @token = appointment.token
-      binding.pry
     rescue
       @create_appointment = true
     end
