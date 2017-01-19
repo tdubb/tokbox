@@ -1,7 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   def index
-    role = (current_user.role + "_id").to_sym
+    role = (current_user.role + "_id").to_sym if current_user.role
     if params[:user_id]
       @title = "My Appointments"
       @appointments = Appointment.where(role => current_user.id) || []
